@@ -1,0 +1,89 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type TaskRecord {
+  name: String
+}
+
+type SessionRecordObjectResolver {
+  id: Float
+  name: String
+  voting: [String!]
+}
+
+type SessionVoteRecordObjectResolver {
+  id: Float
+  member: String
+  vote: String
+}
+
+type SessionItemRecordObjectResolver {
+  id: Float
+  author: String
+  name: String
+  state: String
+  votes: [SessionVoteRecordObjectResolver!]
+}
+
+type SessionDetailsRecordObjectResolver {
+  id: Float
+  name: String
+  voting: [String!]
+  members: [String!]
+  items: [SessionItemRecordObjectResolver!]
+}
+
+type Query {
+  task_getAll: [TaskRecord!]!
+  session(dto: SessionInputResolver!): SessionDetailsRecordObjectResolver!
+  sessions: [SessionRecordObjectResolver!]!
+}
+
+input SessionInputResolver {
+  sessionId: Float!
+}
+
+type Mutation {
+  createSession(dto: CreateSessionInputResolver!): SessionRecordObjectResolver!
+  joinSession(dto: JoinSessionInputResolver!): Boolean!
+  createItem(dto: CreateItemInputResolver!): Boolean!
+  createVote(dto: CreateVoteInputResolver!): Boolean!
+  reveal(dto: RevealInputResolver!): Boolean!
+}
+
+input CreateSessionInputResolver {
+  name: String!
+}
+
+input JoinSessionInputResolver {
+  sessionId: Float!
+  username: String!
+}
+
+input CreateItemInputResolver {
+  sessionId: Float!
+  name: String!
+  author: String!
+}
+
+input CreateVoteInputResolver {
+  sessionId: Float!
+  itemId: Float!
+  member: String!
+  vote: String!
+}
+
+input RevealInputResolver {
+  sessionId: Float!
+  itemId: Float!
+}
+
+type Subscription {
+  subToSessions: [SessionRecordObjectResolver!]!
+  subToSession(dto: SubSessionInputResolver!): SessionDetailsRecordObjectResolver!
+}
+
+input SubSessionInputResolver {
+  sessionId: Float!
+}

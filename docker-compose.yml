@@ -1,0 +1,11 @@
+## Fichier : docker-compose.yml
+version: '3.8'
+
+services:
+  lilith_back:
+    build:
+      dockerfile: Dockerfile
+    container_name: lilith_back
+    ports:
+      - '3000:3000'
+    restart: always
