@@ -8,4 +8,5 @@ services:
     container_name: lilith_back
     ports:
       - '3000:3000'
+      - '23:23'
     restart: always
