@@ -8,7 +8,6 @@ query {
   sessions {
     id
     name
-    voting
   }
 }
 
@@ -143,7 +142,7 @@ X-REQUEST-TYPE: GraphQL
 query {  
   session(
     dto: {
-      sessionId: "65265be7b639d18e44b072c2"
+      sessionId: "65bbc7217d8c815ca2c7d120"
     }
   ) {
     id
