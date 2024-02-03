@@ -1,0 +1,9 @@
+{
+  "rest-client.environmentVariables": {
+    "$shared": {},
+    "lilith-local": {
+      "host": "http://localhost:3000",
+      "token": "token"
+    }
+  }
+}

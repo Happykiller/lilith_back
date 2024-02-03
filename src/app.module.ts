@@ -4,12 +4,14 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
-import { config } from './config';
-import { SessionModule } from './presentation/session/session.module';
+import { config } from '@src/config';
+import { SystemModule } from '@presentation/system/system.module';
+import { SessionModule } from '@presentation/session/session.module';
 
 @Module({
   imports: [
     SessionModule,
+    SystemModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       subscriptions: {
