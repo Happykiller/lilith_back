@@ -5,13 +5,15 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 import { config } from '@src/config';
+import { AuthModule } from '@presentation/auth/auth.module';
 import { SystemModule } from '@presentation/system/system.module';
 import { SessionModule } from '@presentation/session/session.module';
 
 @Module({
   imports: [
-    SessionModule,
+    AuthModule,
     SystemModule,
+    SessionModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       subscriptions: {

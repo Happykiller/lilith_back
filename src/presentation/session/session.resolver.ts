@@ -6,7 +6,7 @@ import { Args, Field, InputType, Mutation, ObjectType, Query, Resolver, Subscrip
 import inversify from '@src/inversify/investify';
 import { PubSubHandler } from '@src/pubSub/pubSubHandler';
 import { TokenGuard } from '@src/presentation/guard/token.guard';
-import { SessionRecordRepository } from '@src/repository/session.repositoy';
+import { SessionRecordRepository } from '@src/repository/session.repository';
 
 @InputType()
 export class CreateSessionInputResolver {

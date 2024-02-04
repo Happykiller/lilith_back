@@ -21,6 +21,13 @@ const defaults: Configuration = {
   },
   client: {
     token: merged.TOKEN_CLIENT ?? 'token'
+  },
+  jwt: {
+    refreshTokenName: 'lilith-refresh-token',
+    secret: merged.TOKEN_CLIENT ?? 'secretKey',
+    signOptions: {
+      expiresIn: '8h'
+    }
   }
 };
 

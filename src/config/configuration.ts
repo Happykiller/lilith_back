@@ -16,6 +16,14 @@ export class Configuration {
   public client?: {
     token?: string;
   }
+
+  public jwt?: {
+    refreshTokenName?: string,
+    secret?: string,
+    signOptions?: {
+      expiresIn?: string
+    }
+  };
   
   /**
    * request limitation per second

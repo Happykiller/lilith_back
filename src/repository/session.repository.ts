@@ -32,7 +32,7 @@ export class SessionRepository {
   }
 
   create(dto: any): SessionRecordRepository {
-    const session  = {
+    const session = {
       id: new mongoose.Types.ObjectId().toString(),
       name: dto.name,
       voting: dto.voting,
