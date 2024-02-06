@@ -16,16 +16,12 @@ export class AuthUsecase {
       code: dto.login
     });
 
-  
-
     if (!user) {
       user = await this.inversify.createUserUsecase.execute({
         code: dto.login,
         secret: dto.secret
       });
     }
-
-    console.log(user)
 
     const cryptPassword = this.inversify.cryptService.crypt({
       message: dto.secret

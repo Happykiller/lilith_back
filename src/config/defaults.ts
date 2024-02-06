@@ -8,7 +8,7 @@ const merged = Object.assign({}, dotenv, dotenvlocal);
 const defaults: Configuration = {
   env: {
     mode: 'defaults',
-    port: parseInt(merged.APP_PORT) ?? 3001
+    port: parseInt(merged.APP_PORT) ?? 3000
   },
   graphQL: {
     schemaFileName: true,

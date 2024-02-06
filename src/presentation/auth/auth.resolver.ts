@@ -46,7 +46,7 @@ export class AuthResolver {
     const userSession:UserSessionUsecaseModel = await inversify.authUsecase.execute(dto);
 
     if (!userSession) {
-      throw new UnauthorizedException('Credentials wrong');
+      throw new UnauthorizedException('error.credentials_wrong');
     }
 
     const token = this.jwtService.sign({ 

@@ -119,6 +119,7 @@ export class SessionResolver {
     private pubSubHandler: PubSubHandler
   ) {}
 
+  @UseGuards(TokenGuard)
   @Mutation(
     /* istanbul ignore next */
     (): typeof SessionDetailsRecordObjectResolver => SessionDetailsRecordObjectResolver
