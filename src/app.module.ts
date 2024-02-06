@@ -17,12 +17,6 @@ import { SessionModule } from '@presentation/session/session.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       subscriptions: {
-        'subscriptions-transport-ws': {
-          path: '/graphql',
-          onConnect: (connectionParams: { Authorization: string }) => {
-            return { req: { Authorization: connectionParams.Authorization } };
-          },
-        },
         'graphql-ws': {
           path: '/graphql',
           onConnect: (context: any) => {
