@@ -12,6 +12,8 @@ import { SessionRecordRepository } from '@src/repository/session.repository';
 export class CreateSessionInputResolver {
   @Field(() => String, { nullable: false })
   name: string;
+  @Field(() => [String], { nullable: true })
+  voting: ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '?']
 }
 
 @ObjectType()
@@ -127,7 +129,7 @@ export class SessionResolver {
   async createSession(@Args('dto') dto: CreateSessionInputResolver): Promise<SessionDetailsRecordObjectResolver> {
     const session:SessionRecordRepository = inversify.sessionRepository.create({
       name: dto.name,
-      voting: ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '?']
+      voting: dto.voting
     });
     await this.pubSubHandler.publish('refreshSession', {
       sessionId: session.id,
