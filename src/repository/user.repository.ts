@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
-import { GetUserRepositoryDto } from '@repository/dto/getUser.repository.dto';
 import { UserRepositoryModel } from '@repository/model/user.repository.model';
-import { CreateUserRepositoryDto } from '@repository/dto/createUser.repository.dto';
+import { GetUserRepositoryDto } from '@src/repository/dto/get.user.repository.dto';
+import { CreateUserRepositoryDto } from '@src/repository/dto/create.user.repository.dto';
 
 export class UserRepository {
 
