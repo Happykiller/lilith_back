@@ -1,6 +1,6 @@
 import { Inversify } from '@src/inversify/investify';
-import { UserUsecaseModel } from '@src/usecase/model/user.usecase.model';
-import { GetUserUsecaseDto } from '@src/usecase/dto/getUser.usecase.dto';
+import { UserUsecaseModel } from '@src/usecase/user/model/user.usecase.model';
+import { GetUserUsecaseDto } from '@src/usecase/user/dto/getUser.usecase.dto';
 
 export class GetUserUsecase {
 

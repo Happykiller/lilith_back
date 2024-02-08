@@ -1,9 +1,9 @@
-import { AuthUsecase } from '@src/usecase/auth.usecase';
-import { UserRepository } from '@repository/user.repository';
-import { GetUserUsecase } from '@src/usecase/getUser.usecase';
+import { AuthUsecase } from '@src/usecase/user/auth.usecase';
 import { CryptService } from '@src/service/crypt/crypt.service';
 import { SessionRepository } from '@repository/session.repository';
-import { CreateUserUsecase } from '@src/usecase/createUser.usecase';
+import { GetUserUsecase } from '@src/usecase/user/getUser.usecase';
+import { UserRepository } from '@src/repository/user/user.repository';
+import { CreateUserUsecase } from '@src/usecase/user/createUser.usecase';
 import { CryptServiceReal } from '@src/service/crypt/crypt.service.real';
 
 export class Inversify {

@@ -4,7 +4,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 
 import { config } from '@src/config';
 import inversify from '@src/inversify/investify';
-import { UserUsecaseModel } from '@src/usecase/model/user.usecase.model';
+import { UserUsecaseModel } from '@src/usecase/user/model/user.usecase.model';
 
 export interface UserSession {
   id: string;

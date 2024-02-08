@@ -11,7 +11,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UnauthorizedException } from '@nestjs/common';
 
 import inversify from '@src/inversify/investify';
-import { UserSessionUsecaseModel } from '@src/usecase/model/userSession.usecase.model';
+import { UserSessionUsecaseModel } from '@src/usecase/user/model/userSession.usecase.model';
 
 @ObjectType()
 export class AuthModelResolver {

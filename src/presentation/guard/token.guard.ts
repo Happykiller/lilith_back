@@ -6,7 +6,7 @@ import { CanActivate, ExecutionContext, UnauthorizedException, Injectable } from
 import { config } from '@src/config';
 import inversify from '@src/inversify/investify';
 import { UserSession } from '@presentation/auth/jwt.strategy';
-import { UserUsecaseModel } from '@src/usecase/model/user.usecase.model';
+import { UserUsecaseModel } from '@src/usecase/user/model/user.usecase.model';
 
 @Injectable()
 export class TokenGuard implements CanActivate {

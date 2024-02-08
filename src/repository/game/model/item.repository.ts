@@ -1,4 +1,4 @@
-import { VoteRecordRepository } from "@repository/model/vote.repository"
+import { VoteRecordRepository } from "@src/repository/game/model/vote.repository"
 
 export class ItemRecordRepository {
   id: string

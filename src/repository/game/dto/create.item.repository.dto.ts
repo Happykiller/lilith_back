@@ -1,5 +1,5 @@
 export interface CreateItemRepositoryDto {
   game_id: string
   name: string
-  author: string
+  user_code: string
 }
