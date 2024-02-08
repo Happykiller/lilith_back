@@ -1,6 +1,6 @@
-import { ItemRecordRepository } from '@src/repository/game/model/item.repository';
-import { GameRecordRepository } from '@src/repository/game/model/game.repository';
-import { VoteRecordRepository } from '@src/repository/game/model/vote.repository';
+import { ItemRecordRepository } from '@src/repository/game/model/item.repository.model';
+import { GameRecordRepository } from '@src/repository/game/model/game.repository.model';
+import { VoteRecordRepository } from '@src/repository/game/model/vote.repository.model';
 import { GetGameRepositoryDto } from '@src/repository/game/dto/get.game.repository.dto';
 import { DeleteItemRepositoryDto } from '@src/repository/game/dto/delete.item.repository.dto';
 import { DeleteGameRepositoryDto } from '@src/repository/game/dto/delete.game.repository.dto';
@@ -20,7 +20,7 @@ export interface GameRepository {
   delete(dto: DeleteGameRepositoryDto): boolean;
   createItem(dto: CreateItemRepositoryDto): ItemRecordRepository;
   updateItem(dto: UpdateItemRepositoryDto): ItemRecordRepository;
-  deleteItem(dto: DeleteItemRepositoryDto): ItemRecordRepository;
+  deleteItem(dto: DeleteItemRepositoryDto): boolean;
   userJoin(dto: UserJoinReprositoryDto): GameRecordRepository;
   createVote(dto: CreateVoteRepositoryDto): VoteRecordRepository;
   deleteVote(dto: DeleteVoteRepositoryDto): boolean;

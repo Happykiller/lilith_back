@@ -8,12 +8,18 @@ import { config } from '@src/config';
 import { AuthModule } from '@presentation/auth/auth.module';
 import { SystemModule } from '@presentation/system/system.module';
 import { SessionModule } from '@presentation/session/session.module';
+import { GameModule } from './presentation/game/game.module';
+import { ItemModule } from './presentation/item/item.module';
+import { VoteModule } from './presentation/vote/vote.module';
 
 @Module({
   imports: [
     AuthModule,
     SystemModule,
     SessionModule,
+    GameModule,
+    ItemModule,
+    VoteModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       subscriptions: {

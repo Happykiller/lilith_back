@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
 
-import { SessionResolver } from './session.resolver';
+import { ItemResolver } from './item.resolver';
 import { PubSubHandler } from '../../pubSub/pubSubHandler';
 
 @Module({
   imports: [],
   providers: [
-    SessionResolver,
+    ItemResolver,
     {
       useValue: new PubSubHandler(),
       provide: 'PubSubHandler'
     }
   ],
 })
-export class SessionModule {}
+export class ItemModule {}

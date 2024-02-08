@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
 import { GameRepository } from '@repository/game/game.repository';
-import { GameRecordRepository } from '@src/repository/game/model/game.repository';
-import { ItemRecordRepository } from '@src/repository/game/model/item.repository';
+import { GameRecordRepository } from '@src/repository/game/model/game.repository.model';
+import { ItemRecordRepository } from '@src/repository/game/model/item.repository.model';
 import { GetGameRepositoryDto } from '@src/repository/game/dto/get.game.repository.dto';
 import { DeleteGameRepositoryDto } from '@src/repository/game/dto/delete.game.repository.dto';
 import { DeleteItemRepositoryDto } from '@src/repository/game/dto/delete.item.repository.dto';
@@ -11,7 +11,7 @@ import { CreateGameRepositoryDto } from '@src/repository/game/dto/create.game.re
 import { UpdateGameRepositoryDto } from '@src/repository/game/dto/update.game.repository.dto';
 import { CreateItemRepositoryDto } from '@src/repository/game/dto/create.item.repository.dto';
 import { UpdateItemRepositoryDto } from '@src/repository/game/dto/update.item.repository.dto';
-import { VoteRecordRepository } from './model/vote.repository';
+import { VoteRecordRepository } from './model/vote.repository.model';
 import { CreateVoteRepositoryDto } from './dto/create.vote.repository.dto';
 import { DeleteVoteRepositoryDto } from './dto/delete.vote.repository.dto';
 
@@ -68,15 +68,18 @@ export class GameFakeRepository implements GameRepository {
   }
 
   updateItem(dto: UpdateItemRepositoryDto): ItemRecordRepository {
-    const game = this.get({ id: dto.id});
-    const item = game.items.find(item => item.id === dto.id);
+    const game = this.get({ id: dto.game_id});
+    const item = game.items.find(item => item.id === dto.item_id);
     if(dto.name)item.name = dto.name;
     if(dto.state)item.state = dto.state;
     return item;
   }
 
-  deleteItem(dto: DeleteItemRepositoryDto): ItemRecordRepository {
-    throw new Error('Method not implemented.');
+  deleteItem(dto: DeleteItemRepositoryDto): boolean {
+    const game = this.get({ id: dto.id});
+    const item = game.items.find(item => item.id === dto.id);
+    item.enable = false;
+    return true;
   }
 
   userJoin(dto: UserJoinReprositoryDto): GameRecordRepository {

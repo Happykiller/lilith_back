@@ -15,6 +15,7 @@
     "resolveJsonModule": true,
     "paths": {
       "@src/*": ["src/*"],
+      "@service/*": ["src/service/*"],
       "@usecase/*": ["src/usecase/*"],
       "@repository/*": ["src/repository/*"],
       "@presentation/*": ["src/presentation/*"]

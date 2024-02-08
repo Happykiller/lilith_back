@@ -1,4 +1,4 @@
-export interface UpdateItemRepositoryDto {
+export interface UpdateItemUsecaseDto {
   game_id: string
   item_id: string
   name?: string
