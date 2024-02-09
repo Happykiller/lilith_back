@@ -1,4 +1,4 @@
 export interface UpdateGameUsecaseDto {
-  id: string
+  game_id: string
   name: string
 }

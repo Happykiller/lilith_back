@@ -1,5 +1,6 @@
 import { PubSub } from 'graphql-subscriptions';
-import { PubSubHandler } from './pubSubHandler';
+
+import { PubSubHandler } from '@presentation/pubSub/pubSubHandler';
 
 describe('PubSubHandler', () => {
 

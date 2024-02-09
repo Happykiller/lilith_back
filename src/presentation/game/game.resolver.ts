@@ -1,17 +1,18 @@
 import { SkipThrottle } from '@nestjs/throttler';
 import { Inject, UseGuards } from '@nestjs/common';
-import { Args, Field, InputType, Mutation, ObjectType, Query, Resolver, Subscription } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 
 import inversify from '@src/inversify/investify';
-import { PubSubHandler } from '@src/pubSub/pubSubHandler';
-import { TokenGuard } from '@src/presentation/guard/token.guard';
-import { GameUsecaseModel } from '../../usecase/game/model/game.usecase.model';
-import { GameResolverModel } from './model/game.resolver.model';
-import { CreateGameResolverDto } from './dto/create.game.resolver.dto';
-import { JoinGameResolverDto } from './dto/join.game.resolver.dto';
-import { UserSession } from '../auth/jwt.strategy';
-import { CurrentSession } from '../guard/userSession.decorator';
-import { GetGameResolverDto } from './dto/get.game.resolver.dto';
+import { TokenGuard } from '@presentation/guard/token.guard';
+import { UserSession } from '@presentation/auth/jwt.strategy';
+import { PubSubHandler } from '@src/presentation/pubSub/pubSubHandler';
+import { GameUsecaseModel } from '@usecase/game/model/game.usecase.model';
+import { CurrentSession } from '@presentation/guard/userSession.decorator';
+import { GameResolverModel } from '@presentation/game/model/game.resolver.model';
+import { GetGameResolverDto } from '@presentation/game/dto/get.game.resolver.dto';
+import { JoinGameResolverDto } from '@presentation/game/dto/join.game.resolver.dto';
+import { CreateGameResolverDto } from '@presentation/game/dto/create.game.resolver.dto';
+import common from '../common/common';
 
 @Resolver('GameResolver')
 export class GameResolver {
@@ -26,13 +27,14 @@ export class GameResolver {
     /* istanbul ignore next */
     (): typeof GameResolverModel => GameResolverModel
   )
-  async createGame(@Args('dto') dto: CreateGameResolverDto): Promise<GameResolverModel> {
+  async createGame(@CurrentSession() session: UserSession, @Args('dto') dto: CreateGameResolverDto): Promise<GameResolverModel> {
     const game:GameUsecaseModel = await inversify.createGameUsecase.execute({
       name: dto.name,
-      voting: dto.voting
+      voting: dto.voting,
+      user_id: session.id
     });
     await this.pubSubHandler.publish('refreshGame', {
-      gameId: game.id,
+      game_id: game.id,
       action: 'createGame' 
     });
     return game;
@@ -44,9 +46,13 @@ export class GameResolver {
     () => Boolean
   )
   async joinGame(@CurrentSession() session: UserSession, @Args('dto') dto: JoinGameResolverDto): Promise<boolean> {
-    await inversify.joinGameUsecase.execute({   
+    const game:GameResolverModel = await inversify.joinGameUsecase.execute({   
       game_id: dto.game_id,
-      user_code: session.code
+      user_id: session.id
+    });
+    await this.pubSubHandler.publish('refreshGame', {
+      game_id: dto.game_id,
+      action: 'joinGame' 
     });
     return true;
   }
@@ -56,8 +62,11 @@ export class GameResolver {
     /* istanbul ignore next */
     () => GameResolverModel
   )
-  async game(@Args('dto') dto: GetGameResolverDto): Promise<GameResolverModel> {
-    return await inversify.gameRepository.get({ id: dto.gameId});
+  async game(@CurrentSession() session: UserSession, @Args('dto') dto: GetGameResolverDto): Promise<GameResolverModel> {
+    return await inversify.getGameUsecase.execute({ 
+      ... dto,
+      user_id: session.id
+     });
   }
 
   @UseGuards(TokenGuard)
@@ -65,8 +74,10 @@ export class GameResolver {
     /* istanbul ignore next */
     () => [GameResolverModel]
   )
-  async games(): Promise<GameResolverModel[]> {
-    return inversify.gameRepository.getAll() as GameResolverModel[];
+  async games(@CurrentSession() session: UserSession): Promise<GameResolverModel[]> {
+    return await inversify.getAllGameUsecase.execute({ 
+      user_id: session.id
+     });
   }
 
   @SkipThrottle()
@@ -76,7 +87,10 @@ export class GameResolver {
     (): [typeof GameResolverModel] => [GameResolverModel], {
       /* istanbul ignore next */
       async resolve(payload: any, args: any, context: any, info: any) {
-        return inversify.gameRepository.getAll() as GameResolverModel[];
+        const userSession: UserSession = common.getUseSessionFromContext(context);
+        return await inversify.getAllGameUsecase.execute({ 
+          user_id: userSession.id
+         });
       }
     })
   /* istanbul ignore next */
@@ -90,13 +104,16 @@ export class GameResolver {
     /* istanbul ignore next */
     (): typeof GameResolverModel => GameResolverModel, 
     {
-      filter: (payload, variables, context) => {
-        return payload.gameId === variables.dto.gameId;
+      filter: (payload, variables) => {
+        return payload.game_id === variables.dto.game_id;
       },
       /* istanbul ignore next */
       async resolve(payload: any, args: any, context: any, info: any) {
-        const game = inversify.gameRepository.get({ id: args.dto.gameId});
-        return game;
+        const userSession: UserSession = common.getUseSessionFromContext(context);
+        return await inversify.getGameUsecase.execute({ 
+          game_id: args.dto.game_id,
+          user_id: userSession.id
+         });
       }
     })
   /* istanbul ignore next */

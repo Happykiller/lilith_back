@@ -7,5 +7,5 @@ export class DeleteVoteResolverDto {
   @Field(() => String, { nullable: false })
   item_id: string;
   @Field(() => String, { nullable: false })
-  id: string;
+  vote_id: string;
 }

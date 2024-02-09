@@ -2,24 +2,51 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type TaskRecord {
-  name: String
+type AuthModelResolver {
+  """Session token"""
+  accessToken: String!
+
+  """Id of the user"""
+  id: String!
+
+  """Code of the user"""
+  code: String!
 }
 
-type SessionRecordObjectResolver {
-  id: Float
+type VoteResolverModel {
+  id: String
+  author_id: String
+  vote: String
+}
+
+type ItemResolverModel {
+  id: String
+  author_id: String
+  name: String
+  state: String
+  votes: [VoteResolverModel!]
+}
+
+type GameResolverModel {
+  id: String
   name: String
   voting: [String!]
+  members: [String!]
+  items: [ItemResolverModel!]
+}
+
+type SessionModelResolver {
+  version: String!
 }
 
 type SessionVoteRecordObjectResolver {
-  id: Float
+  id: String
   member: String
   vote: String
 }
 
 type SessionItemRecordObjectResolver {
-  id: Float
+  id: String
   author: String
   name: String
   state: String
@@ -27,7 +54,7 @@ type SessionItemRecordObjectResolver {
 }
 
 type SessionDetailsRecordObjectResolver {
-  id: Float
+  id: String
   name: String
   voting: [String!]
   members: [String!]
@@ -35,55 +62,96 @@ type SessionDetailsRecordObjectResolver {
 }
 
 type Query {
-  task_getAll: [TaskRecord!]!
+  auth(dto: AuthInput!): AuthModelResolver!
+  systemInfo: SessionModelResolver!
   session(dto: SessionInputResolver!): SessionDetailsRecordObjectResolver!
-  sessions: [SessionRecordObjectResolver!]!
+  sessions: [SessionDetailsRecordObjectResolver!]!
+  game(dto: GetGameResolverDto!): GameResolverModel!
+  games: [GameResolverModel!]!
+}
+
+input AuthInput {
+  """User code for the session"""
+  login: String!
+
+  """Secret for the session"""
+  secret: String!
 }
 
 input SessionInputResolver {
-  sessionId: Float!
+  sessionId: String!
+}
+
+input GetGameResolverDto {
+  game_id: String!
 }
 
 type Mutation {
-  createSession(dto: CreateSessionInputResolver!): SessionRecordObjectResolver!
+  createSession(dto: CreateSessionInputResolver!): SessionDetailsRecordObjectResolver!
   joinSession(dto: JoinSessionInputResolver!): Boolean!
-  createItem(dto: CreateItemInputResolver!): Boolean!
-  createVote(dto: CreateVoteInputResolver!): Boolean!
-  reveal(dto: RevealInputResolver!): Boolean!
+  createItem(dto: CreateItemResolverDto!): ItemResolverModel!
+  createVote(dto: CreateVoteResolverDto!): VoteResolverModel!
+  removeVote(dto: removeVoteInputResolver!): Boolean!
+  reveal(dto: RevealItemResolverDto!): Boolean!
+  createGame(dto: CreateGameResolverDto!): GameResolverModel!
+  joinGame(dto: JoinGameResolverDto!): Boolean!
+  deleteVote(dto: DeleteVoteResolverDto!): Boolean!
 }
 
 input CreateSessionInputResolver {
   name: String!
+  voting: [String!]
 }
 
 input JoinSessionInputResolver {
-  sessionId: Float!
+  sessionId: String!
   username: String!
 }
 
-input CreateItemInputResolver {
-  sessionId: Float!
+input CreateItemResolverDto {
+  game_id: String!
   name: String!
-  author: String!
 }
 
-input CreateVoteInputResolver {
-  sessionId: Float!
-  itemId: Float!
-  member: String!
+input CreateVoteResolverDto {
+  game_id: String!
+  item_id: String!
   vote: String!
 }
 
-input RevealInputResolver {
-  sessionId: Float!
-  itemId: Float!
+input removeVoteInputResolver {
+  sessionId: String!
+  itemId: String!
+  voteId: String!
+}
+
+input RevealItemResolverDto {
+  game_id: String!
+  item_id: String!
+}
+
+input CreateGameResolverDto {
+  name: String!
+  voting: [String!]
+}
+
+input JoinGameResolverDto {
+  game_id: String!
+}
+
+input DeleteVoteResolverDto {
+  game_id: String!
+  item_id: String!
+  vote_id: String!
 }
 
 type Subscription {
-  subToSessions: [SessionRecordObjectResolver!]!
+  subToSessions: [SessionDetailsRecordObjectResolver!]!
   subToSession(dto: SubSessionInputResolver!): SessionDetailsRecordObjectResolver!
+  subToGames: [GameResolverModel!]!
+  subToGame(dto: GetGameResolverDto!): GameResolverModel!
 }
 
 input SubSessionInputResolver {
-  sessionId: Float!
+  sessionId: String!
 }

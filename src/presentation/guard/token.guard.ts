@@ -7,6 +7,7 @@ import { config } from '@src/config';
 import inversify from '@src/inversify/investify';
 import { UserSession } from '@presentation/auth/jwt.strategy';
 import { UserUsecaseModel } from '@src/usecase/user/model/user.usecase.model';
+import common from '../common/common';
 
 @Injectable()
 export class TokenGuard implements CanActivate {
@@ -16,35 +17,8 @@ export class TokenGuard implements CanActivate {
   ): Promise<boolean | any | Promise<boolean | any> | Observable<boolean | any>> {
     try {
       const ctx = GqlExecutionContext.create(context);
-      let authorization;
-      let type;
-      
-      try {
-        // From POST
-        authorization = ctx.getContext().req.header('Authorization');
-        type = 'POST';
-      } catch(e) {
-        if (ctx.getContext().req.connectionParams) {
-          // From WS
-          authorization = ctx.getContext().req.connectionParams['Authorization'];
-          type = 'WS';
-        } else {
-          // From Playground
-          authorization = ctx.getContext().req['Authorization'];
-          type = 'PLAYGROUND';
-        }
-      }
 
-      const accessToken = authorization.split('Bearer ')[1];
-
-      if (!accessToken) throw new UnauthorizedException('Access token is not set');
-
-      let userSession: UserSession;
-      try {
-        userSession = jwt.verify(accessToken, config.jwt.secret) as UserSession;
-      } catch (err) {
-        throw new UnauthorizedException('Token expired');
-      }
+      const userSession: UserSession = common.getUseSessionFromContext(ctx.getContext());
 
       const user: UserUsecaseModel = await inversify.getUserUsecase.execute({
         id: userSession.id
@@ -54,7 +28,7 @@ export class TokenGuard implements CanActivate {
         throw new UnauthorizedException('User is not found');
       }
 
-      if (type === 'POST') {
+      if (userSession.type === 'POST') {
         const refreshToken: string = jwt.sign(
           {
             code: userSession.code,

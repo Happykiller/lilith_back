@@ -1,5 +1,6 @@
 import { Inversify } from '@src/inversify/investify';
-import { GameUsecaseModel } from './model/game.usecase.model';
+import { GameUsecaseModel } from '@usecase/game/model/game.usecase.model';
+import { GetAllGameUsecaseDto } from '@usecase/game/dto/getAll.game.usecase.dto';
 
 export class GetAllGameUsecase {
 
@@ -9,7 +10,7 @@ export class GetAllGameUsecase {
     this.inversify = inversify;
   }
 
-  async execute(): Promise<GameUsecaseModel[]> {
+  async execute(dto: GetAllGameUsecaseDto): Promise<GameUsecaseModel[]> {
     return await this.inversify.gameRepository.getAll();
   }
 }

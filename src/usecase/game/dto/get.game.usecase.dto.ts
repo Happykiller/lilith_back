@@ -1,3 +1,4 @@
 export interface GetGameUsecaseDto {
-  id: string
+  game_id: string
+  user_id: string
 }

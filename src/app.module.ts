@@ -6,11 +6,11 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 import { config } from '@src/config';
 import { AuthModule } from '@presentation/auth/auth.module';
-import { SystemModule } from '@presentation/system/system.module';
-import { SessionModule } from '@presentation/session/session.module';
 import { GameModule } from './presentation/game/game.module';
 import { ItemModule } from './presentation/item/item.module';
 import { VoteModule } from './presentation/vote/vote.module';
+import { SystemModule } from '@presentation/system/system.module';
+import { SessionModule } from '@presentation/session/session.module';
 
 @Module({
   imports: [
@@ -22,6 +22,12 @@ import { VoteModule } from './presentation/vote/vote.module';
     VoteModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      context: ({ req, connectionParams, extra, res }) => ({
+        req,
+        connectionParams,
+        extra,
+        res
+      }),
       subscriptions: {
         'graphql-ws': {
           path: '/graphql',
@@ -33,10 +39,7 @@ import { VoteModule } from './presentation/vote/vote.module';
       },
       playground: config.graphQL.playground,
       introspection: config.graphQL.introspection,
-      autoSchemaFile: config.graphQL.schemaFileName,
-      context: ({ req, res }) => {
-        return { req, res };
-      },
+      autoSchemaFile: config.graphQL.schemaFileName
     }),
     ScheduleModule.forRoot(),
     ThrottlerModule.forRoot(config.ratelimit),

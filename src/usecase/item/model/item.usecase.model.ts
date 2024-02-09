@@ -2,7 +2,7 @@ import { VoteUsecaseModel } from "@usecase/vote/model/vote.usecase.model"
 
 export class ItemUsecaseModel {
   id: string
-  author: string
+  author_id: string
   name: string
   state: string
   votes: VoteUsecaseModel[]

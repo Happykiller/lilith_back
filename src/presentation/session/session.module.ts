@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
 import { SessionResolver } from './session.resolver';
-import { PubSubHandler } from '../../pubSub/pubSubHandler';
+import { PubSubHandler } from '../pubSub/pubSubHandler';
 
 @Module({
   imports: [],

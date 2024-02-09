@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
-import { ItemResolver } from './item.resolver';
-import { PubSubHandler } from '../../pubSub/pubSubHandler';
+import { ItemResolver } from '@presentation/item/item.resolver';
+import { PubSubHandler } from '@presentation/pubSub/pubSubHandler';
 
 @Module({
   imports: [],

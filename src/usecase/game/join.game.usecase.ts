@@ -1,6 +1,6 @@
 import { Inversify } from '@src/inversify/investify';
-import { GameUsecaseModel } from './model/game.usecase.model';
-import { JoinGameUsecaseDto } from './dto/join.game.usecase.dto';
+import { GameUsecaseModel } from '@usecase/game/model/game.usecase.model';
+import { JoinGameUsecaseDto } from '@usecase/game/dto/join.game.usecase.dto';
 
 export class JoinGameUsecase {
 

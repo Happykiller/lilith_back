@@ -2,7 +2,7 @@ import { VoteRecordRepository } from "@src/repository/game/model/vote.repository
 
 export class ItemRecordRepository {
   id: string
-  author: string
+  author_id: string
   name: string
   state: string
   votes: VoteRecordRepository[]

@@ -1,5 +1,5 @@
 import { Inversify } from '@src/inversify/investify';
-import { DeleteGameUsecaseDto } from './dto/delete.game.usecase.dto';
+import { DeleteGameUsecaseDto } from '@usecase/game/dto/delete.game.usecase.dto';
 
 export class DeleteGameUsecase {
 

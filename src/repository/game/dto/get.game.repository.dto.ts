@@ -1,3 +1,3 @@
 export interface GetGameRepositoryDto {
-  id: string
+  game_id: string
 }

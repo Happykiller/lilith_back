@@ -5,7 +5,7 @@ export class VoteResolverModel {
   @Field(() => String, { nullable: true })
   id: string;
   @Field(() => String, { nullable: true })
-  user_code: string;
+  author_id: string;
   @Field(() => String, { nullable: true })
   vote: string;
 }

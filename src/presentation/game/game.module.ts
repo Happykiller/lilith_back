@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
-import { GameResolver } from './game.resolver';
-import { PubSubHandler } from '../../pubSub/pubSubHandler';
+import { GameResolver } from '@presentation/game/game.resolver';
+import { PubSubHandler } from '@presentation/pubSub/pubSubHandler';
 
 @Module({
   imports: [],

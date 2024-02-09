@@ -13,15 +13,27 @@ import { CreateVoteRepositoryDto } from '@src/repository/game/dto/create.vote.re
 import { DeleteVoteRepositoryDto } from '@src/repository/game/dto/delete.vote.repository.dto';
 
 export interface GameRepository {
-  create(dto: CreateGameRepositoryDto): GameRecordRepository;
-  get(dto: GetGameRepositoryDto): GameRecordRepository;
+  /**
+   * GAME
+   */
   getAll(): GameRecordRepository[];
-  update(dto: UpdateGameRepositoryDto): GameRecordRepository;
   delete(dto: DeleteGameRepositoryDto): boolean;
+  get(dto: GetGameRepositoryDto): GameRecordRepository;
+  create(dto: CreateGameRepositoryDto): GameRecordRepository;
+  update(dto: UpdateGameRepositoryDto): GameRecordRepository;
+  //  Actions
+  userJoin(dto: UserJoinReprositoryDto): GameRecordRepository;
+
+  /**
+   * ITEM
+   */
+  deleteItem(dto: DeleteItemRepositoryDto): boolean;
   createItem(dto: CreateItemRepositoryDto): ItemRecordRepository;
   updateItem(dto: UpdateItemRepositoryDto): ItemRecordRepository;
-  deleteItem(dto: DeleteItemRepositoryDto): boolean;
-  userJoin(dto: UserJoinReprositoryDto): GameRecordRepository;
-  createVote(dto: CreateVoteRepositoryDto): VoteRecordRepository;
+
+  /**
+   * VOTE
+   */
   deleteVote(dto: DeleteVoteRepositoryDto): boolean;
+  createVote(dto: CreateVoteRepositoryDto): VoteRecordRepository;
 }

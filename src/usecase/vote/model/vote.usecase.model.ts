@@ -2,7 +2,7 @@ export class VoteUsecaseModel {
   id: string
   game_id: string
   item_id: string
-  user_code: string
+  author_id: string
   vote: string
   enable: boolean
 }

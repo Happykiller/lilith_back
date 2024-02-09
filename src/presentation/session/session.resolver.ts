@@ -4,7 +4,7 @@ import { Inject, UseGuards } from '@nestjs/common';
 import { Args, Field, InputType, Mutation, ObjectType, Query, Resolver, Subscription } from '@nestjs/graphql';
 
 import inversify from '@src/inversify/investify';
-import { PubSubHandler } from '@src/pubSub/pubSubHandler';
+import { PubSubHandler } from '@src/presentation/pubSub/pubSubHandler';
 import { TokenGuard } from '@src/presentation/guard/token.guard';
 import { SessionRecordRepository } from '@src/repository/session.repository';
 

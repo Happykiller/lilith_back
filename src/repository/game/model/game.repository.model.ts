@@ -6,5 +6,6 @@ export class GameRecordRepository {
   voting: string[]
   members: string[]
   items: ItemRecordRepository[]
+  author_id: string
   enable: boolean
 }

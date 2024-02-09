@@ -1,3 +1,3 @@
 export interface DeleteGameRepositoryDto {
-  id: string
+  game_id: string
 }

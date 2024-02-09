@@ -1,6 +1,6 @@
 export interface CreateVoteUsecaseDto {
   game_id: string
   item_id: string
-  user_code: string
+  user_id: string
   vote: string
 }

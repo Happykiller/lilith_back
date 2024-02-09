@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
-import { VoteResolver } from './vote.resolver';
-import { PubSubHandler } from '../../pubSub/pubSubHandler';
+import { VoteResolver } from '@presentation/vote/vote.resolver';
+import { PubSubHandler } from '@presentation/pubSub/pubSubHandler';
 
 @Module({
   imports: [],

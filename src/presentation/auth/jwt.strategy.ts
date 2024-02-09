@@ -9,6 +9,7 @@ import { UserUsecaseModel } from '@src/usecase/user/model/user.usecase.model';
 export interface UserSession {
   id: string;
   code: string;
+  type?: string;
 }
 
 @Injectable()
