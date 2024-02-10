@@ -1,6 +1,6 @@
-import { ItemRecordRepository } from '@src/repository/game/model/item.repository.model';
-import { GameRecordRepository } from '@src/repository/game/model/game.repository.model';
-import { VoteRecordRepository } from '@src/repository/game/model/vote.repository.model';
+import { ItemRepositoryModel } from '@src/repository/game/model/item.repository.model';
+import { GameRepositoryModel } from '@src/repository/game/model/game.repository.model';
+import { VoteRepositoryModel } from '@src/repository/game/model/vote.repository.model';
 import { GetGameRepositoryDto } from '@src/repository/game/dto/get.game.repository.dto';
 import { DeleteItemRepositoryDto } from '@src/repository/game/dto/delete.item.repository.dto';
 import { DeleteGameRepositoryDto } from '@src/repository/game/dto/delete.game.repository.dto';
@@ -16,24 +16,24 @@ export interface GameRepository {
   /**
    * GAME
    */
-  getAll(): GameRecordRepository[];
+  getAll(): GameRepositoryModel[];
   delete(dto: DeleteGameRepositoryDto): boolean;
-  get(dto: GetGameRepositoryDto): GameRecordRepository;
-  create(dto: CreateGameRepositoryDto): GameRecordRepository;
-  update(dto: UpdateGameRepositoryDto): GameRecordRepository;
+  get(dto: GetGameRepositoryDto): GameRepositoryModel;
+  create(dto: CreateGameRepositoryDto): GameRepositoryModel;
+  update(dto: UpdateGameRepositoryDto): GameRepositoryModel;
   //  Actions
-  userJoin(dto: UserJoinReprositoryDto): GameRecordRepository;
+  userJoin(dto: UserJoinReprositoryDto): GameRepositoryModel;
 
   /**
    * ITEM
    */
   deleteItem(dto: DeleteItemRepositoryDto): boolean;
-  createItem(dto: CreateItemRepositoryDto): ItemRecordRepository;
-  updateItem(dto: UpdateItemRepositoryDto): ItemRecordRepository;
+  createItem(dto: CreateItemRepositoryDto): ItemRepositoryModel;
+  updateItem(dto: UpdateItemRepositoryDto): ItemRepositoryModel;
 
   /**
    * VOTE
    */
   deleteVote(dto: DeleteVoteRepositoryDto): boolean;
-  createVote(dto: CreateVoteRepositoryDto): VoteRecordRepository;
+  createVote(dto: CreateVoteRepositoryDto): VoteRepositoryModel;
 }

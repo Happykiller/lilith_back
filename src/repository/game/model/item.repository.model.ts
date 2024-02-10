@@ -1,10 +1,10 @@
-import { VoteRecordRepository } from "@src/repository/game/model/vote.repository.model"
+import { VoteRepositoryModel } from "@src/repository/game/model/vote.repository.model"
 
-export class ItemRecordRepository {
+export class ItemRepositoryModel {
   id: string
   author_id: string
   name: string
   state: string
-  votes: VoteRecordRepository[]
+  votes: VoteRepositoryModel[]
   enable: boolean
 }

@@ -1,4 +1,4 @@
-export class VoteRecordRepository {
+export class VoteRepositoryModel {
   id: string
   game_id: string
   item_id: string

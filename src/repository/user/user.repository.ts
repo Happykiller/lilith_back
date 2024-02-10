@@ -6,11 +6,7 @@ import { CreateUserRepositoryDto } from '@src/repository/user/dto/create.user.re
 
 export class UserRepository {
 
-  collection: UserRepositoryModel[] = [{
-    id: '65c5ed55aeb274278b5821c1',
-    code: 'faro',
-    secret: '6C81OaQDC13Zw0DFg6lZUDvxCfE8YvTbVOBj999XCrVmDBlOwdPUlqfcT5sp5qXGGZHijr7YyV6fUKPWEr2pzg=='
-  }];
+  collection: UserRepositoryModel[] = [];
 
   get(dto: GetUserRepositoryDto): UserRepositoryModel {
     const user:UserRepositoryModel = this.collection.find(elt => {

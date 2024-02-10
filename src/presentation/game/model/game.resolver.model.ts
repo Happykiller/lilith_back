@@ -7,6 +7,8 @@ export class GameResolverModel {
   id: string;
   @Field(() => String, { nullable: true })
   name: string;
+  @Field(() => String, { nullable: true })
+  author_id: string;
   @Field(() => [String], { nullable: true })
   voting: string[];
   @Field(() => [String], { nullable: true })

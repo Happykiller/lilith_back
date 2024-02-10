@@ -1,11 +1,11 @@
-import { ItemRecordRepository } from "@src/repository/game/model/item.repository.model"
+import { ItemRepositoryModel } from "@src/repository/game/model/item.repository.model"
 
-export class GameRecordRepository {
+export class GameRepositoryModel {
   id: string
   name: string
   voting: string[]
   members: string[]
-  items: ItemRecordRepository[]
+  items: ItemRepositoryModel[]
   author_id: string
   enable: boolean
 }
