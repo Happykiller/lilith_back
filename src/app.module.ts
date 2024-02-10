@@ -10,16 +10,14 @@ import { GameModule } from './presentation/game/game.module';
 import { ItemModule } from './presentation/item/item.module';
 import { VoteModule } from './presentation/vote/vote.module';
 import { SystemModule } from '@presentation/system/system.module';
-import { SessionModule } from '@presentation/session/session.module';
 
 @Module({
   imports: [
     AuthModule,
-    SystemModule,
-    SessionModule,
     GameModule,
     ItemModule,
     VoteModule,
+    SystemModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       subscriptions: {
