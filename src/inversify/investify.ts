@@ -15,8 +15,10 @@ import { DeleteVoteUsecase } from '@usecase/vote/delete.vote.usecase';
 import { UpdateItemUsecase } from '@usecase/item/update.item.usecase';
 import { GetAllGameUsecase } from '@usecase/game/getAll.game.usecase';
 import { GameFakeRepository } from '@repository/game/game.fake.repository';
+import { PubSub } from 'graphql-subscriptions';
 
 export class Inversify {
+  pubSub: PubSub;
   authUsecase: AuthUsecase;
   cryptService: CryptService;
   gameRepository: GameRepository;
@@ -37,6 +39,7 @@ export class Inversify {
     /**
      * Services
      */
+    this.pubSub = new PubSub();
     this.cryptService = new CryptServiceReal();
 
     /**

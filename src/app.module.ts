@@ -22,12 +22,6 @@ import { SessionModule } from '@presentation/session/session.module';
     VoteModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      context: ({ req, connectionParams, extra, res }) => ({
-        req,
-        connectionParams,
-        extra,
-        res
-      }),
       subscriptions: {
         'graphql-ws': {
           path: '/graphql',
@@ -39,7 +33,10 @@ import { SessionModule } from '@presentation/session/session.module';
       },
       playground: config.graphQL.playground,
       introspection: config.graphQL.introspection,
-      autoSchemaFile: config.graphQL.schemaFileName
+      autoSchemaFile: config.graphQL.schemaFileName,
+      context: ({ req, res }) => {
+        return { req, res };
+      }
     }),
     ScheduleModule.forRoot(),
     ThrottlerModule.forRoot(config.ratelimit),

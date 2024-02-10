@@ -1,6 +1,7 @@
 
 import { Injectable } from '@nestjs/common';
 import { PubSub } from 'graphql-subscriptions';
+import inversify from '../../inversify/investify';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IPubSubHandler {
@@ -11,18 +12,12 @@ export interface IPubSubHandler {
 @Injectable()
 export class PubSubHandler implements IPubSubHandler {
 
-  private pubSub: PubSub;
-
-  constructor() {
-    this.pubSub = new PubSub();
-  }
-
   async publish(eventName: string, payload: any): Promise<void> {
-    await this.pubSub.publish(eventName, payload);
+    await inversify.pubSub.publish(eventName, payload);
     return;
   }
 
   asyncIterator(eventName: string): AsyncIterator<unknown, any, undefined> {
-    return this.pubSub.asyncIterator(eventName);
+    return inversify.pubSub.asyncIterator(eventName);
   }
 }
