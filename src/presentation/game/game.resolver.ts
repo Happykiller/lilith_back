@@ -24,10 +24,29 @@ export class GameResolver {
     private pubSubHandler: PubSubHandler
   ) {}
 
+  @ResolveField(() => [UserResolverModel])
+  async members_obj(@Parent() game:GameResolverModel):Promise<UserResolverModel[]> {
+    const response:UserResolverModel[] = [];
+
+    for(const member_id of game.members){
+      const user:UserUsecaseModel = await inversify.getUserUsecase.execute({
+        id: member_id
+      })
+      response.push({
+        id: user.id,
+        code: user.code
+      })
+    }
+
+
+    
+    return response;
+  }
+
   @ResolveField(() => UserResolverModel)
-  async author(@Parent() vote:GameResolverModel):Promise<UserResolverModel> {
+  async author(@Parent() game:GameResolverModel):Promise<UserResolverModel> {
     const user:UserUsecaseModel = await inversify.getUserUsecase.execute({
-      id: vote.author_id
+      id: game.author_id
     })
     return {
       id: user.id,

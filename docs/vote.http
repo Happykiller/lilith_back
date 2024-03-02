@@ -1,0 +1,36 @@
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {  
+  createVote(
+    dto: {
+      game_id: "65265be7b639d18e44b072c2"
+      itemId: "65265c22b639d18e44b072c3"
+      member: "fabrice"
+      vote: "XL"
+    }
+  ) {
+    id
+    member
+    vote
+  }
+}
+
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {  
+  removeVote(
+    dto: {
+      game_id: "65265be7b639d18e44b072c2"
+      itemId: "65265c22b639d18e44b072c3"
+      voteId: "65265ccab639d18e44b072c4"
+    }
+  )
+}

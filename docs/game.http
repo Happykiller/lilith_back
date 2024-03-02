@@ -1,0 +1,151 @@
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+query {
+  games {
+    id
+    name
+  }
+}
+
+
+#####
+subscription {
+  subTogames {
+    id
+    name
+  }
+}
+
+### header
+{
+  "Authorization": "Bearer {{token}}"
+}
+
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {  
+  createGame(
+    dto: {
+      name: "test2"
+    }
+  ) {
+    id
+    name
+    voting
+    author_id
+    author {
+      id
+      code
+    }
+    members
+    members_obj {
+      id
+      code
+    }
+    items {
+      id
+      name
+      author_id
+      author {
+        id
+        code
+      }
+      state
+      votes {
+        id
+        author_id
+        author {
+          id
+          code
+        }
+        vote
+      }
+    }
+  }
+}
+
+
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+query {  
+  game(
+    dto: {
+      game_id: "65e343e61ae2781f6a212c2e"
+    }
+  ) {
+    id
+    name
+    voting
+    author_id
+    author {
+      id
+      code
+    }
+    members
+    members_obj {
+      id
+      code
+    }
+    items {
+      id
+      name
+      author_id
+      author {
+        id
+        code
+      }
+      state
+      votes {
+        id
+        author_id
+        author {
+          id
+          code
+        }
+        vote
+      }
+    }
+  }
+}
+
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {  
+  joinGame(
+    dto: {
+      game_id: "65265be7b639d18e44b072c2",
+      username: "fabrice"
+    }
+  )
+}
+
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {  
+  reveal(
+    dto: {
+      sessionId: "65265be7b639d18e44b072c2"
+      itemId: "65265c22b639d18e44b072c3"
+    }
+  )
+}

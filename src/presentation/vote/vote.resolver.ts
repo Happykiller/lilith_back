@@ -22,7 +22,7 @@ export class VoteResolver {
   ) {}
 
   @ResolveField(() => UserResolverModel)
-  async user(@Parent() vote:VoteResolverModel):Promise<UserResolverModel> {
+  async author(@Parent() vote:VoteResolverModel):Promise<UserResolverModel> {
     const user:UserUsecaseModel = await inversify.getUserUsecase.execute({
       id: vote.author_id
     })

@@ -1,0 +1,25 @@
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {  
+  createItem(
+    dto: {
+      game_id: "65265be7b639d18e44b072c2",
+      author: "fabrice",
+      name: "Synchro AD des groupes"
+    }
+  ) {
+    id
+    name
+    author
+    state
+    votes {
+      id
+      member
+      vote
+    }
+  }
+}

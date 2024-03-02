@@ -3,7 +3,7 @@
     "$shared": {},
     "lilith-local": {
       "host": "http://localhost:3000",
-      "token": "token"
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiZmFybyIsImlkIjoiNjVlMzQzY2QxYWUyNzgxZjZhMjEyYzJkIiwiaWF0IjoxNzA5MzkyODQ1LCJleHAiOjE3MDk0MjE2NDV9.QSSgErMJ9VHinrPdySII9eBVX6pe83-NDDzl9JKI-RQ"
     }
   }
 }

@@ -1,0 +1,18 @@
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+query {
+  auth (
+    dto: {
+      login: "faro"
+      secret: "pass"
+    }
+  ) {
+    id
+    code
+    accessToken
+  }
+}
