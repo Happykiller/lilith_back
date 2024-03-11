@@ -1,7 +1,6 @@
 {
   "name": "lilith_apis",
-  "private": true,
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Apis for Lilith",
   "license": "MIT",
   "scripts": {

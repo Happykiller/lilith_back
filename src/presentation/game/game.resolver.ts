@@ -37,8 +37,6 @@ export class GameResolver {
         code: user.code
       })
     }
-
-
     
     return response;
   }

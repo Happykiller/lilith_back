@@ -10,6 +10,10 @@ export class ItemResolverModel {
   @Field(() => String, { nullable: true })
   name: string;
   @Field(() => String, { nullable: true })
+  url: string;
+  @Field(() => String, { nullable: true })
+  description: string;
+  @Field(() => String, { nullable: true })
   state: string;
   @Field(() => [VoteResolverModel], { nullable: true })
   votes: VoteResolverModel[];

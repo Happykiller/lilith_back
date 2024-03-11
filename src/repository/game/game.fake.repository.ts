@@ -59,6 +59,8 @@ export class GameFakeRepository implements GameRepository {
     const item:ItemRepositoryModel = {
       id: new mongoose.Types.ObjectId().toString(),
       name: dto.name,
+      url: dto.url,
+      description: dto.description,
       author_id: dto.user_id,
       state: 'CREATE',
       votes: [],
