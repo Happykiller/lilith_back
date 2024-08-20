@@ -1,0 +1,47 @@
+# Node.js specific
+node_modules
+npm-debug.log
+yarn-error.log
+
+# TypeScript specific
+dist
+*.tsbuildinfo
+
+# Logs
+logs
+*.log
+
+# Docker files
+Dockerfile
+docker-compose.yml
+docker-compose.prod.yml
+
+# IDEs and editors
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Miscellaneous
+.DS_Store
+.git
+.gitignore
+
+# Testing
+coverage
+*.test.ts
+*.spec.ts
+
+docs
+*.tar
+images
+.eslintrc.js
+.prettierrc
+jest-e2e.json
+jest.json
+LICENSE
+Makefile
+nest-cli.json
+README.md

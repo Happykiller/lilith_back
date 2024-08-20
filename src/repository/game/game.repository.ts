@@ -1,16 +1,17 @@
-import { ItemRepositoryModel } from '@src/repository/game/model/item.repository.model';
-import { GameRepositoryModel } from '@src/repository/game/model/game.repository.model';
-import { VoteRepositoryModel } from '@src/repository/game/model/vote.repository.model';
-import { GetGameRepositoryDto } from '@src/repository/game/dto/get.game.repository.dto';
-import { DeleteItemRepositoryDto } from '@src/repository/game/dto/delete.item.repository.dto';
-import { DeleteGameRepositoryDto } from '@src/repository/game/dto/delete.game.repository.dto';
-import { UserJoinReprositoryDto } from '@src/repository/game/dto/userJoin.game.respository.dto';
-import { CreateGameRepositoryDto } from '@src/repository/game/dto/create.game.repository.dto';
-import { UpdateGameRepositoryDto } from '@src/repository/game/dto/update.game.repository.dto';
-import { CreateItemRepositoryDto } from '@src/repository/game/dto/create.item.repository.dto';
-import { UpdateItemRepositoryDto } from '@src/repository/game/dto/update.item.repository.dto';
-import { CreateVoteRepositoryDto } from '@src/repository/game/dto/create.vote.repository.dto';
-import { DeleteVoteRepositoryDto } from '@src/repository/game/dto/delete.vote.repository.dto';
+import { ItemRepositoryModel } from '@repository/game/model/item.repository.model';
+import { GameRepositoryModel } from '@repository/game/model/game.repository.model';
+import { VoteRepositoryModel } from '@repository/game/model/vote.repository.model';
+import { GetGameRepositoryDto } from '@repository/game/dto/get.game.repository.dto';
+import { DeleteItemRepositoryDto } from '@repository/game/dto/delete.item.repository.dto';
+import { DeleteGameRepositoryDto } from '@repository/game/dto/delete.game.repository.dto';
+import { CreateGameRepositoryDto } from '@repository/game/dto/create.game.repository.dto';
+import { UpdateGameRepositoryDto } from '@repository/game/dto/update.game.repository.dto';
+import { CreateItemRepositoryDto } from '@repository/game/dto/create.item.repository.dto';
+import { UpdateItemRepositoryDto } from '@repository/game/dto/update.item.repository.dto';
+import { CreateVoteRepositoryDto } from '@repository/game/dto/create.vote.repository.dto';
+import { DeleteVoteRepositoryDto } from '@repository/game/dto/delete.vote.repository.dto';
+import { UserJoinReprositoryDto } from '@repository/game/dto/userJoin.game.respository.dto';
+import { UserLeaveReprositoryDto } from '@repository/game/dto/user.leave.game.respository.dto';
 
 export interface GameRepository {
   /**
@@ -23,6 +24,7 @@ export interface GameRepository {
   update(dto: UpdateGameRepositoryDto): GameRepositoryModel;
   //  Actions
   userJoin(dto: UserJoinReprositoryDto): GameRepositoryModel;
+  userLeave(dto: UserLeaveReprositoryDto): GameRepositoryModel;
 
   /**
    * ITEM

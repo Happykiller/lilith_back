@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+import { config } from '@src/config';
 import { UserRepositoryModel } from '@src/repository/user/model/user.repository.model';
 import { GetUserRepositoryDto } from '@src/repository/user/dto/get.user.repository.dto';
 import { CreateUserRepositoryDto } from '@src/repository/user/dto/create.user.repository.dto';
@@ -7,6 +8,16 @@ import { CreateUserRepositoryDto } from '@src/repository/user/dto/create.user.re
 export class UserRepository {
 
   collection: UserRepositoryModel[] = [];
+
+  constructor() {
+    if(config.env.mode === 'dev') {
+        this.collection.push({
+        "id": "66c4653ffa469b1998529311",
+        "code": "faro",
+        "secret": "pass"
+      });
+    }
+  }
 
   get(dto: GetUserRepositoryDto): UserRepositoryModel {
     const user:UserRepositoryModel = this.collection.find(elt => {

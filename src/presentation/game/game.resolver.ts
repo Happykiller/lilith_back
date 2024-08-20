@@ -14,6 +14,7 @@ import { GameResolverModel } from '@presentation/game/model/game.resolver.model'
 import { UserResolverModel } from '@presentation/user/model/user.resolver.model';
 import { GetGameResolverDto } from '@presentation/game/dto/get.game.resolver.dto';
 import { JoinGameResolverDto } from '@presentation/game/dto/join.game.resolver.dto';
+import { LeaveGameResolverDto } from '@presentation/game/dto/leave.game.resolver.dto';
 import { CreateGameResolverDto } from '@presentation/game/dto/create.game.resolver.dto';
 
 @Resolver(of => GameResolverModel)
@@ -83,6 +84,23 @@ export class GameResolver {
     await this.pubSubHandler.publish('refreshGame', {
       game_id: dto.game_id,
       action: 'joinGame' 
+    });
+    return true;
+  }
+
+  @UseGuards(TokenGuard)
+  @Mutation(
+    /* istanbul ignore next */
+    () => Boolean
+  )
+  async leave_game(@CurrentSession() session: UserSession, @Args('dto') dto: LeaveGameResolverDto): Promise<boolean> {
+    const game:GameResolverModel = await inversify.leaveGameUsecase.execute({   
+      game_id: dto.game_id,
+      user_id: session.id
+    });
+    await this.pubSubHandler.publish('refreshGame', {
+      game_id: dto.game_id,
+      action: 'leave_game' 
     });
     return true;
   }

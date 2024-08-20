@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+import { config } from '@src/config';
 import { GameRepository } from '@repository/game/game.repository';
 import { GameRepositoryModel } from '@repository/game/model/game.repository.model';
 import { ItemRepositoryModel } from '@repository/game/model/item.repository.model';
@@ -14,10 +15,27 @@ import { UpdateItemRepositoryDto } from '@repository/game/dto/update.item.reposi
 import { CreateVoteRepositoryDto } from '@repository/game/dto/create.vote.repository.dto';
 import { DeleteVoteRepositoryDto } from '@repository/game/dto/delete.vote.repository.dto';
 import { UserJoinReprositoryDto } from '@repository/game/dto/userJoin.game.respository.dto';
+import { UserLeaveReprositoryDto } from '@repository/game/dto/user.leave.game.respository.dto';
 
 export class GameFakeRepository implements GameRepository {
 
   collection: GameRepositoryModel[] = [];
+
+  constructor() {
+    if(config.env.mode === 'dev') {
+      this.collection.push({
+        "id": "66c46756158599b6f305097d",
+        "name": "test",
+        "members": [
+          "66c4653ffa469b1998529311"
+        ],
+        "voting": [],
+        "items": [],
+        "author_id": "66c4653ffa469b1998529311",
+        "enable": true
+      });
+    }
+  }
 
   create(dto: CreateGameRepositoryDto): GameRepositoryModel {
     const game:GameRepositoryModel = {
@@ -89,6 +107,19 @@ export class GameFakeRepository implements GameRepository {
     const game:GameRepositoryModel = this.get({ game_id: dto.game_id});
     if (!game.members.includes(dto.user_id)) {
       game.members.push(dto.user_id);
+    }
+    return game;
+  }
+
+  userLeave(dto: UserLeaveReprositoryDto): GameRepositoryModel {
+    const game:GameRepositoryModel = this.get({ game_id: dto.game_id});
+
+    // Trouver l'index de l'élément à supprimer
+    const index = game.members.indexOf(dto.user_id);
+
+    // Si l'élément existe dans la liste, le supprimer
+    if (index !== -1) {
+      game.members.splice(index, 1);
     }
     return game;
   }

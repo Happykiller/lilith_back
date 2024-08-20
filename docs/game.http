@@ -34,7 +34,7 @@ X-REQUEST-TYPE: GraphQL
 mutation {  
   createGame(
     dto: {
-      name: "test2"
+      name: "test"
     }
   ) {
     id
@@ -82,7 +82,7 @@ X-REQUEST-TYPE: GraphQL
 query {  
   game(
     dto: {
-      game_id: "65e343e61ae2781f6a212c2e"
+      game_id: "66c46756158599b6f305097d"
     }
   ) {
     id
@@ -129,8 +129,21 @@ X-REQUEST-TYPE: GraphQL
 mutation {  
   joinGame(
     dto: {
-      game_id: "65265be7b639d18e44b072c2",
-      username: "fabrice"
+      game_id: "66c463d568a181bf4fec74f0"
+    }
+  )
+}
+
+###
+POST {{host}}/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+X-REQUEST-TYPE: GraphQL
+
+mutation {  
+  leave_game(
+    dto: {
+      game_id: "66c46756158599b6f305097d"
     }
   )
 }
