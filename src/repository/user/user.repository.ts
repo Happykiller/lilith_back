@@ -14,7 +14,7 @@ export class UserRepository {
         this.collection.push({
         "id": "66c4653ffa469b1998529311",
         "code": "faro",
-        "secret": "pass"
+        "secret": "6C81OaQDC13Zw0DFg6lZUDvxCfE8YvTbVOBj999XCrVmDBlOwdPUlqfcT5sp5qXGGZHijr7YyV6fUKPWEr2pzg==" //pass
       });
     }
   }

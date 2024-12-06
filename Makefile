@@ -10,6 +10,19 @@ down:
 reset: down
 	docker rm lilith_back
 
+# Build the Docker image and save it as a tarball
+tar: 
+	docker build -t lilith_back -f Dockerfile .
+	docker save lilith_back -o lilith_back.tar
+
+# Install the Docker image by loading it from a tarball and running it
+install:
+	docker stop lilith_back
+	docker rm lilith_back
+	docker image rm lilith_back
+	docker load -i lilith_back.tar
+	docker compose -f docker-compose.prod.yml up -d
+
 help:
 	@echo ""
 	@echo "~~ Lilith_back Makefile ~~"

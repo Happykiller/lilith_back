@@ -3,7 +3,7 @@
     "$shared": {},
     "lilith-local": {
       "host": "http://localhost:3000",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiZmFybyIsImlkIjoiNjZjNDY1M2ZmYTQ2OWIxOTk4NTI5MzExIiwiaWF0IjoxNzI0MTQ3MDA3LCJleHAiOjE3MjQxNzU4MDd9.nMChXlOpmF4uOrQB3LZcMvUaJW3KXg74AClsCFXRHvQ"
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiZmFybyIsImlkIjoiNjZjNDY1M2ZmYTQ2OWIxOTk4NTI5MzExIiwiaWF0IjoxNzI0MjQxNTAyLCJleHAiOjE3MjQyNzAzMDJ9.KVeGYltQAy_ZDmCDs50KWHi2uTqPdVBL4WijkcOvDiE"
     }
   }
 }

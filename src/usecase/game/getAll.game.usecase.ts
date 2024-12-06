@@ -13,9 +13,6 @@ export class GetAllGameUsecase {
 
   async execute(dto: GetAllGameUsecaseDto): Promise<GameUsecaseModel[]> {
     const games:GameRepositoryModel[] = await this.inversify.gameRepository.getAll();
-    return games.filter((game) => (
-      game.author_id === dto.user_id
-      || game.members.includes(dto.user_id)
-    ));
+    return games.filter((game) => game.members.includes(dto.user_id));
   }
 }

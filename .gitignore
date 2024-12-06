@@ -405,3 +405,5 @@ src/config/prod.ts
 /test.http
 
 logs
+
+*.tar

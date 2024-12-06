@@ -1,9 +1,10 @@
 ## Fichier : docker-compose.yml
 services:
-  lilith_back:
-    build:
-      dockerfile: Dockerfile
+  vergo_back:
+    image: lilith_back
     container_name: lilith_back
     ports:
       - '3000:3000'
     restart: always
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
