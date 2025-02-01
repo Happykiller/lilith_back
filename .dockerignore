@@ -45,3 +45,5 @@ LICENSE
 Makefile
 nest-cli.json
 README.md
+
+.env.local

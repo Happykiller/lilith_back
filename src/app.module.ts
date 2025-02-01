@@ -37,7 +37,7 @@ import { SystemModule } from '@presentation/system/system.module';
       }
     }),
     ScheduleModule.forRoot(),
-    ThrottlerModule.forRoot(config.ratelimit),
+    ThrottlerModule.forRoot([config.ratelimit]),
   ]
 })
 export class AppModule {}
