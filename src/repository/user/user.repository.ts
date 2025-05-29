@@ -10,17 +10,23 @@ export class UserRepository {
   collection: UserRepositoryModel[] = [];
 
   constructor() {
-    if(config.env.mode === 'dev') {
-        this.collection.push({
-        "id": "66c4653ffa469b1998529311",
-        "code": "faro",
-        "secret": "6C81OaQDC13Zw0DFg6lZUDvxCfE8YvTbVOBj999XCrVmDBlOwdPUlqfcT5sp5qXGGZHijr7YyV6fUKPWEr2pzg==" //pass
+    if (config.env.mode === 'dev') {
+      this.collection.push({
+        id: '66c4653ffa469b1998529311',
+        code: 'faro',
+        password: 'aprYlFvT+A9NMTYF6+/xtvuF5uEaN8WVXHdq6CDLEovroiQnRKvJxeMyiXrlNo/Na/teHxVWkVJZr/Fjyu/3xw==', // pass avec secretKey,
+        name_first: null,
+        name_last: null,
+        description: null,
+        mail: null,
+        role: 'USER',
+        active: true
       });
     }
   }
 
   get(dto: GetUserRepositoryDto): UserRepositoryModel {
-    const user:UserRepositoryModel = this.collection.find(elt => {
+    const user: UserRepositoryModel = this.collection.find(elt => {
       if (dto.id) {
         return elt.id === dto.id;
       } else if (dto.code) {
@@ -35,7 +41,13 @@ export class UserRepository {
   create(dto: CreateUserRepositoryDto): UserRepositoryModel {
     const user = {
       id: new mongoose.Types.ObjectId().toString(),
-      ... dto
+      ...dto,
+      name_first: null,
+      name_last: null,
+      description: null,
+      mail: null,
+      role: 'USER',
+      active: true
     };
     this.collection.push(user);
     return user;

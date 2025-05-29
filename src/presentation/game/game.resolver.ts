@@ -1,21 +1,17 @@
+// src\presentation\game\game.resolver.ts
 import { SkipThrottle } from '@nestjs/throttler';
 import { Inject, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Parent, ResolveField, Resolver, Subscription } from '@nestjs/graphql';
 
-import common from '@presentation/common/common';
 import inversify from '@src/inversify/investify';
-import { TokenGuard } from '@presentation/guard/token.guard';
-import { UserSession } from '@presentation/auth/jwt.strategy';
 import { PubSubHandler } from '@presentation/pubSub/pubSubHandler';
 import { GameUsecaseModel } from '@usecase/game/model/game.usecase.model';
-import { UserUsecaseModel } from '@usecase/user/model/user.usecase.model';
-import { CurrentSession } from '@presentation/guard/userSession.decorator';
 import { GameResolverModel } from '@presentation/game/model/game.resolver.model';
-import { UserResolverModel } from '@presentation/user/model/user.resolver.model';
 import { GetGameResolverDto } from '@presentation/game/dto/get.game.resolver.dto';
 import { JoinGameResolverDto } from '@presentation/game/dto/join.game.resolver.dto';
 import { LeaveGameResolverDto } from '@presentation/game/dto/leave.game.resolver.dto';
 import { CreateGameResolverDto } from '@presentation/game/dto/create.game.resolver.dto';
+import { CurrentSession, makeAuthGuard, USER_ROLE, UserResolverModel, UserSession, UserUsecaseModel } from '@happykiller/sunny-apis';
 
 @Resolver(of => GameResolverModel)
 export class GameResolver {
@@ -33,10 +29,7 @@ export class GameResolver {
       const user:UserUsecaseModel = await inversify.getUserUsecase.execute({
         id: member_id
       })
-      response.push({
-        id: user.id,
-        code: user.code
-      })
+      response.push(user);
     }
     
     return response;
@@ -47,13 +40,10 @@ export class GameResolver {
     const user:UserUsecaseModel = await inversify.getUserUsecase.execute({
       id: game.author_id
     })
-    return {
-      id: user.id,
-      code: user.code
-    };
+    return user;
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(makeAuthGuard('graphql', [USER_ROLE.ALL]))
   @Mutation(
     /* istanbul ignore next */
     (): typeof GameResolverModel => GameResolverModel
@@ -71,7 +61,7 @@ export class GameResolver {
     return game;
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(makeAuthGuard('graphql', [USER_ROLE.ALL]))
   @Mutation(
     /* istanbul ignore next */
     () => Boolean
@@ -88,7 +78,7 @@ export class GameResolver {
     return true;
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(makeAuthGuard('graphql', [USER_ROLE.ALL]))
   @Mutation(
     /* istanbul ignore next */
     () => Boolean
@@ -105,7 +95,7 @@ export class GameResolver {
     return true;
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(makeAuthGuard('graphql', [USER_ROLE.ALL]))
   @Query(
     /* istanbul ignore next */
     () => GameResolverModel
@@ -117,7 +107,7 @@ export class GameResolver {
      });
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(makeAuthGuard('graphql', [USER_ROLE.ALL]))
   @Query(
     /* istanbul ignore next */
     () => [GameResolverModel]
@@ -129,13 +119,13 @@ export class GameResolver {
   }
 
   @SkipThrottle()
-  @UseGuards(TokenGuard)
+  @UseGuards(makeAuthGuard('ws', [USER_ROLE.ALL]))
   @Subscription(
     /* istanbul ignore next */
     (): [typeof GameResolverModel] => [GameResolverModel], {
       /* istanbul ignore next */
       async resolve(payload: any, args: any, context: any, info: any) {
-        const userSession: UserSession = common.getUseSessionFromContext(context);
+        const userSession: UserSession = context.session;
         return await inversify.getAllGameUsecase.execute({ 
           user_id: userSession.id
          });
@@ -147,7 +137,7 @@ export class GameResolver {
   }
 
   @SkipThrottle()
-  @UseGuards(TokenGuard)
+  @UseGuards(makeAuthGuard('ws', [USER_ROLE.ALL]))
   @Subscription(
     /* istanbul ignore next */
     (): typeof GameResolverModel => GameResolverModel, 
@@ -157,7 +147,7 @@ export class GameResolver {
       },
       /* istanbul ignore next */
       async resolve(payload: any, args: any, context: any, info: any) {
-        const userSession: UserSession = common.getUseSessionFromContext(context);
+        const userSession: UserSession = context.session;
         return await inversify.getGameUsecase.execute({ 
           game_id: args.dto.game_id,
           user_id: userSession.id

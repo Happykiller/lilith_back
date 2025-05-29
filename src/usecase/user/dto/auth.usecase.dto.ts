@@ -1,4 +1,5 @@
+// src\usecase\user\dto\auth.usecase.dto.ts
 export interface AuthUsecaseDto {
   login: string
-  secret: string
+  password: string
 }

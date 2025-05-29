@@ -1,14 +1,16 @@
+// src\config\defaults.ts
+import { loadEnv } from './loadEnv';
+import { version } from '../../package.json';
 import { Configuration } from './configuration';
 
-const dotenv = require('dotenv').config().parsed;
-const dotenvlocal = require('dotenv').config({ path: `.env.local`, override: true }).parsed;
-
-const merged = Object.assign({}, dotenv, dotenvlocal);
+const env = loadEnv();
 
 const defaults: Configuration = {
+  app_name: 'lilith',
+  version,
   env: {
     mode: 'defaults',
-    port: parseInt(merged.APP_PORT) ?? 3000
+    port: parseInt(env.APP_PORT) ?? 3000
   },
   graphQL: {
     schemaFileName: true,
@@ -16,16 +18,23 @@ const defaults: Configuration = {
     introspection: true,
     installSubscriptionHandlers: true,
   },
-  client: {
-    token: merged.TOKEN_CLIENT ?? 'token'
-  },
   jwt: {
     refreshTokenName: 'lilith-refresh-token',
-    secret: merged.TOKEN_CLIENT ?? 'secretKey',
+    secret: env.TOKEN_CLIENT ?? 'secretKey',
     signOptions: {
       expiresIn: '8h'
     }
-  }
+  },
+  db: {
+    connection_string: env.DB_CONN_STRING ?? '',
+    name: env.DB_NAME ?? 'lilith',
+  },
+  throttle: [
+    {
+      ttl: 60000,
+      limit: 10,
+    },
+  ],
 };
 
 export { defaults };

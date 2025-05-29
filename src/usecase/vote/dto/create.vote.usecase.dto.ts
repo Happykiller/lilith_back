@@ -1,3 +1,4 @@
+// src\usecase\vote\dto\create.vote.usecase.dto.ts
 export interface CreateVoteUsecaseDto {
   game_id: string
   item_id: string

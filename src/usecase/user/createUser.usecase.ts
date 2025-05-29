@@ -1,6 +1,7 @@
+// src\usecase\user\createUser.usecase.ts
 import { Inversify } from '@src/inversify/investify';
-import { UserUsecaseModel } from '@src/usecase/user/model/user.usecase.model';
-import { CreateUserUsecaseDto } from '@src/usecase/user/dto/createUser.usecase.dto';
+import { UserUsecaseModel } from '@happykiller/sunny-apis';
+import { CreateUserUsecaseDto } from '@usecase/user/dto/createUser.usecase.dto';
 
 export class CreateUserUsecase {
 
@@ -12,13 +13,13 @@ export class CreateUserUsecase {
 
   async execute(dto: CreateUserUsecaseDto): Promise<UserUsecaseModel> {
 
-    const secretCyrp = this.inversify.cryptService.crypt({
-      message: dto.secret
+    const passwordCyrp = this.inversify.cryptService.crypt({
+      message: dto.password
     });
 
     return await this.inversify.userRepository.create({
       code: dto.code,
-      secret: secretCyrp
+      password: passwordCyrp
     });
   }
 }

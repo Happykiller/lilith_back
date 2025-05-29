@@ -1,4 +1,5 @@
-import { VoteUsecaseModel } from "@usecase/vote/model/vote.usecase.model"
+// src\usecase\item\model\item.usecase.model.ts
+import { VoteUsecaseModel } from "@usecase/vote/model/vote.usecase.model";
 
 export class ItemUsecaseModel {
   id: string

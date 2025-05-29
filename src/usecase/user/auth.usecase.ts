@@ -1,7 +1,7 @@
+// src\usecase\user\auth.usecase.ts
 import { Inversify } from '@src/inversify/investify';
 import { AuthUsecaseDto } from '@src/usecase/user/dto/auth.usecase.dto';
-import { UserUsecaseModel } from '@src/usecase/user/model/user.usecase.model';
-import { UserSessionUsecaseModel } from '@src/usecase/user/model/userSession.usecase.model';
+import { UserSessionUsecaseModel, UserUsecaseModel } from '@happykiller/sunny-apis';
 
 export class AuthUsecase {
 
@@ -19,18 +19,17 @@ export class AuthUsecase {
     if (!user) {
       user = await this.inversify.createUserUsecase.execute({
         code: dto.login,
-        secret: dto.secret
+        password: dto.password
       });
     }
 
     const cryptPassword = this.inversify.cryptService.crypt({
-      message: dto.secret
+      message: dto.password
     });
 
-    if (user && user.secret === cryptPassword) {
+    if (user && user.password === cryptPassword) {
       return {
-        id: user.id,
-        code: user.code
+        ... user
       }
     } else {
       return null;

@@ -1,3 +1,4 @@
+// src\usecase\vote\create.vote.usecase.ts
 import { Inversify } from '@src/inversify/investify';
 import { VoteUsecaseModel } from '@usecase/vote/model/vote.usecase.model';
 import { CreateVoteUsecaseDto } from '@usecase/vote/dto/create.vote.usecase.dto';

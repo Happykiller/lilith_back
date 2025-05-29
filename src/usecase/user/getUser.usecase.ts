@@ -1,6 +1,6 @@
+// src\usecase\user\getUser.usecase.ts
 import { Inversify } from '@src/inversify/investify';
-import { UserUsecaseModel } from '@src/usecase/user/model/user.usecase.model';
-import { GetUserUsecaseDto } from '@src/usecase/user/dto/getUser.usecase.dto';
+import { GetUserUsecaseDto, UserUsecaseModel } from '@happykiller/sunny-apis';
 
 export class GetUserUsecase {
 

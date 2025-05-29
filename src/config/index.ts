@@ -1,3 +1,4 @@
+// src\config\index.ts
 import { merge } from 'lodash';
 
 import { defaults } from './defaults';

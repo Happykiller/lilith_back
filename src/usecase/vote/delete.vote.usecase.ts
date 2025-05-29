@@ -1,3 +1,4 @@
+// src\usecase\vote\delete.vote.usecase.ts
 import { Inversify } from '@src/inversify/investify';
 import { DeleteVoteUsecaseDto } from '@usecase/vote/dto/delete.vote.usecase.dto';
 

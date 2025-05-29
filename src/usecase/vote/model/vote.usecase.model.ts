@@ -1,3 +1,4 @@
+// src\usecase\vote\model\vote.usecase.model.ts
 export class VoteUsecaseModel {
   id: string
   game_id: string

@@ -1,17 +1,27 @@
-import { Logger } from '@nestjs/common';
+// src\main.ts
 import * as bodyParser from 'body-parser';
 import { NestFactory } from '@nestjs/core';
 import { NextFunction, Request, Response } from 'express';
 
-import { config } from './config';
-import { AppModule } from './app.module';
+import { config } from '@src/config';
+import { AppModule } from '@src/app.module';
+import inversify from '@src/inversify/investify';
+import { configureAuthGuardFactory, NestLogger } from '@happykiller/sunny-apis';
 
 async function bootstrap() {
-  const logger = new Logger('bootstrap');
-  logger.log(`Environnement selected: ${config.env.mode} on port ${config.env.port ?? 3000}`);
-  
+  inversify.loggerService.log(
+    'info',
+    `Environnement selected: ${config.env.mode} on port ${config.env.port ?? 3000}`,
+  );
+
   require('events').EventEmitter.defaultMaxListeners = 50;
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: new NestLogger(),
+  });
+  configureAuthGuardFactory({
+    inversify,
+    appConfig: config,
+  });
   app.use(bodyParser.json({ limit: '50KB' }));
   app.use(bodyParser.urlencoded({ limit: '50KB', extended: true }));
   app.enableCors();

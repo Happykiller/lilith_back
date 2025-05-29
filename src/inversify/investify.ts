@@ -1,9 +1,8 @@
+// src\inversify\investify.ts
 import { PubSub } from 'graphql-subscriptions';
 
 import { config } from '@src/config';
-import { logger } from '@src/common/logger/logger';
 import { AuthUsecase } from '@usecase/user/auth.usecase';
-import { CryptService } from '@service/crypt/crypt.service';
 import { GetUserUsecase } from '@usecase/user/getUser.usecase';
 import { GetGameUsecase } from '@usecase/game/get.game.usecase';
 import { UserRepository } from '@repository/user/user.repository';
@@ -12,15 +11,14 @@ import { JoinGameUsecase } from '@usecase/game/join.game.usecase';
 import { SessionRepository } from '@repository/session.repository';
 import { LeaveGameUsecase } from '@usecase/game/leave.game.usecase';
 import { CreateUserUsecase } from '@usecase/user/createUser.usecase';
-import { CryptServiceReal } from '@service/crypt/crypt.service.real';
 import { CreateGameUsecase } from '@usecase/game/create.game.usecase';
 import { CreateItemUsecase } from '@usecase/item/create.item.usecase';
 import { CreateVoteUsecase } from '@usecase/vote/create.vote.usecase';
 import { DeleteVoteUsecase } from '@usecase/vote/delete.vote.usecase';
 import { UpdateItemUsecase } from '@usecase/item/update.item.usecase';
 import { GetAllGameUsecase } from '@usecase/game/getAll.game.usecase';
-import { LoggerServiceFake } from '@service/logger/logger.service.fake';
 import { GameFakeRepository } from '@repository/game/game.fake.repository';
+import { CryptService, CryptServiceReal, logger, LoggerServiceFake } from '@happykiller/sunny-apis';
 
 export class Inversify {
   pubSub: PubSub;
@@ -47,7 +45,7 @@ export class Inversify {
      * Services
      */
     this.pubSub = new PubSub();
-    this.cryptService = new CryptServiceReal();
+    this.cryptService = new CryptServiceReal(config);
     if (config.env.mode === 'prod') {
       this.loggerService = logger;
     } else if (config.env.mode === 'dev') {

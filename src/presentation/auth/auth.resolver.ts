@@ -1,8 +1,8 @@
+//src\presentation\auth\auth.resolver.ts
 import {
   Args,
   Field,
   InputType,
-  Int,
   ObjectType,
   Query,
   Resolver
@@ -11,7 +11,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UnauthorizedException } from '@nestjs/common';
 
 import inversify from '@src/inversify/investify';
-import { UserSessionUsecaseModel } from '@src/usecase/user/model/userSession.usecase.model';
+import { UserSessionUsecaseModel } from '@happykiller/sunny-apis';
 
 @ObjectType()
 export class AuthModelResolver {
@@ -43,7 +43,10 @@ export class AuthResolver {
     (): typeof AuthModelResolver => AuthModelResolver
   )
   async auth(@Args('dto') dto: AuthInput): Promise<AuthModelResolver> {
-    const userSession:UserSessionUsecaseModel = await inversify.authUsecase.execute(dto);
+    const userSession:UserSessionUsecaseModel = await inversify.authUsecase.execute({
+      login: dto.login,
+      password: dto.secret
+    });
 
     if (!userSession) {
       throw new UnauthorizedException('error.credentials_wrong');
