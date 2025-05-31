@@ -13,6 +13,6 @@ query {
   ) {
     id
     code
-    accessToken
+    access_token
   }
 }

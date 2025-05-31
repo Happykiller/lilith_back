@@ -8,15 +8,15 @@ import {
   Resolver
 } from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt';
-import { UnauthorizedException } from '@nestjs/common';
+import { UnauthorizedException, UseGuards } from '@nestjs/common';
 
 import inversify from '@src/inversify/investify';
-import { UserSessionUsecaseModel } from '@happykiller/sunny-apis';
+import { CurrentSession, makeAuthGuard, USER_ROLE, UserSession, UserSessionResolverModel, UserSessionUsecaseModel } from '@happykiller/sunny-apis';
 
 @ObjectType()
 export class AuthModelResolver {
   @Field(() => String, { description: 'Session token' })
-  accessToken: string;
+  access_token: string;
   @Field(() => String, { description: 'Id of the user' })
   id: string;
   @Field(() => String, { description: 'Code of the user' })
@@ -57,8 +57,38 @@ export class AuthResolver {
       id: userSession.id
     });
     return {
-      accessToken: token,
+      access_token: token,
       ... userSession
+    };
+  }
+
+  @UseGuards(makeAuthGuard('graphql', [USER_ROLE.ALL]))
+  @Query(
+    /* istanbul ignore next */
+    (): typeof AuthModelResolver => AuthModelResolver,
+  )
+  async getSessionInfo(
+    @CurrentSession() session: UserSession,
+  ): Promise<AuthModelResolver> {
+
+    const userSession: UserSessionResolverModel =
+      await inversify.getUserUsecase.execute({
+        id: session.id,
+      });
+
+    if (!userSession) {
+      throw new UnauthorizedException('Credentials wrong');
+    }
+
+    const token = this.jwtService.sign({
+      code: userSession.code,
+      id: userSession.id,
+      role: userSession.role,
+    });
+
+    return {
+      access_token: token,
+      ...userSession,
     };
   }
 }
