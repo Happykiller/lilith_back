@@ -12,7 +12,7 @@ reset: down
 
 # Build the Docker image and save it as a tarball
 tar: 
-	docker build -t lilith_back -f Dockerfile .
+	docker build --no-cache -t lilith_back -f Dockerfile .
 	docker save lilith_back -o lilith_back.tar
 
 # Install the Docker image by loading it from a tarball and running it
